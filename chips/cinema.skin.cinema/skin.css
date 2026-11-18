@@ -1,0 +1,122 @@
+/* Skin "cinema": Cinema's own look, as semantic tokens. style.css carries the same
+   values as fallbacks, so the page looks the same before (or without) a skin.
+   Skins define tokens only; components and modules refer to them. A skin may also
+   override a module's tokens (--m-<module>-*) and give a module a layout of its own
+   (skins/<skin>/modules/<module id>/layout.css). */
+:root{
+  --font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  --c-on-surface:#f5f6f8;
+  --c-on-surface-muted:#a3a9b5;
+  --c-surface-overlay:#11151df2;
+  --c-surface-raised:#1a1f28;
+  --c-line:#ffffff10;
+  --c-control:#ffffff14;
+  --c-control-focus:#fff;
+  --c-on-control-focus:#101318;
+  --c-selected:#e8ebef;
+  --c-on-selected:#10131a;
+  --c-accent:#fff;
+  --c-accent-soft:#ffffff40;
+  --c-shadow:#0008;
+  --shadow-overlay:0 16px 60px var(--c-shadow);
+  --radius-overlay:28px;
+  --radius-panel:18px;
+  --radius-control:999px;
+  --space-overlay:22px;
+  --text-control:15px;
+  --text-caption:13px;
+  --text-body:14px;
+  --weight-control:600;
+}
+/* The Cinema renderer's surfaces (render.mjs): stacked like Settings' own rows. */
+.cs-surface{display:flex;flex-direction:column;gap:8px}
+.cs-chips{display:flex;flex-wrap:wrap;gap:8px}
+.cs-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.cs-tile{display:grid;gap:6px;align-content:start;text-align:left;background:transparent;border:0;padding:0;color:inherit;font:inherit}
+.cs-tile .c-artwork{aspect-ratio:2/3;border-radius:12px;overflow:hidden;background:var(--c-control)}
+.cs-tile small{display:block;color:var(--c-on-surface-muted);font-size:var(--text-caption)}
+.cs-tile:is(:focus-visible,.keys .kfocus) .c-artwork{outline:3px solid var(--c-control-focus);outline-offset:2px}
+.card[data-kind=module-tile] .art{display:grid;place-items:center;padding:12px;text-align:center}
+.card[data-kind=module-tile] .tile-badge{font-size:calc(20px*var(--text-scale,1));font-weight:600;letter-spacing:-.01em;color:var(--c-on-surface)}
+.card[data-kind=module-tile][data-tone=muted] .art{opacity:.6}
+.card[data-kind=module-tile][data-tone=muted] .tile-badge{font-weight:500;color:var(--c-on-surface-muted)}
+.card[data-kind=module-tile][aria-disabled=true]{cursor:default}
+.home-module{display:contents}
+/* The player's module surfaces (2026-11-17): Cinema's player look, from the skin's own tokens. */
+.cs-player-strip{margin-top:12px}
+.cs-player-panel{margin-top:12px;max-height:min(56vh,520px);overflow:auto;overscroll-behavior:contain}
+.cs-player-panel .c-panel-body{gap:6px}
+.cs-player-actions{display:flex;flex-wrap:wrap;gap:8px}
+.cs-player-heading{margin:8px 0 0;font-size:var(--text-caption);color:var(--c-on-surface-muted)}
+.cs-entries{display:flex;flex-direction:column;gap:6px}
+.cs-entry{display:flex;align-items:baseline;gap:12px;width:100%;text-align:start}
+.cs-entry-badge{min-width:2ch;color:var(--c-on-surface-muted)}
+.cs-entry-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-entry-time,.cs-entry-meta{color:var(--c-on-surface-muted);font-size:var(--text-caption)}
+.cs-entry[aria-current="true"]{box-shadow:inset 3px 0 0 var(--c-accent)}
+.cs-player-panel[aria-busy="true"] .cs-entry{opacity:.7}
+.cs-entry-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cs-entry-tiles .cs-entry{flex-direction:column;align-items:stretch;gap:6px;padding:8px;border:1px solid var(--c-line);border-radius:var(--radius-panel,18px)}
+.cs-entry-tiles .cs-entry-title{white-space:normal}
+.cs-entry-thumb img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px}
+.cs-player-note{margin:4px 0 0;min-height:1.2em;font-size:var(--text-caption);color:var(--c-on-surface-muted)}
+.cs-player-note:empty{display:none}
+.cs-player-facts{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px}
+.cs-fact-label{color:var(--c-on-surface-muted);font-size:var(--text-caption)}.cs-fact-value{overflow-wrap:anywhere}
+.cs-player-picture{width:clamp(140px,26%,240px);aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:var(--c-control)}
+.cs-player-picture[data-shape=poster]{width:clamp(80px,14%,120px);aspect-ratio:2/3}
+.cs-player-picture img,.cs-face img{width:100%;height:100%;object-fit:cover}
+.cs-people{display:flex;gap:12px;overflow-x:auto;padding:4px 0;scrollbar-width:thin}
+.cs-person{flex:none;width:84px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.cs-face{width:56px;height:56px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--c-control);color:var(--c-on-surface-muted);font-size:var(--text-caption)}
+.cs-person-name,.cs-person-role{font-size:var(--text-caption);overflow-wrap:anywhere}.cs-person-role{color:var(--c-on-surface-muted)}
+/* The open card's media slot (render.mjs renderMedia; geometry the skin's own since 2026-11-18, review of bi): the
+   picture's focus stop (a 16:9 stage) and, under it, the strip of its controls. The strip slides out from under the picture
+   when the stage says its controls are out (aria-expanded) and slides back when they are put away, as Cinema's trailer
+   always did; the slot is as tall as what is drawn. A media module lays its picture over the stage, whatever its shape. */
+[data-media-slot] .cs-media{display:block;position:relative}
+[data-media-slot] .cs-media-stage{display:block;width:100%;aspect-ratio:16/9;min-height:0;padding:0;border:0;
+  border-radius:16px;background:transparent;box-shadow:none}
+[data-media-slot] .cs-media-strip{display:flex;align-items:center;gap:8px;box-sizing:border-box;height:48px;max-height:0;padding:0 12px;
+  overflow:hidden;background:var(--c-surface-raised);border-radius:0 0 16px 16px;transform:translateY(-100%);opacity:0;visibility:hidden;
+  transition:max-height .25s ease,transform .25s ease,opacity .2s ease,visibility 0s linear .25s}
+[data-media-slot] .cs-media-stage[aria-expanded=true]+.cs-media-strip{max-height:48px;transform:none;opacity:1;visibility:visible;transition-delay:0s}
+[data-media-slot] .cs-media-strip .c-button{min-height:32px;padding:5px 14px;font-size:var(--text-caption);font-weight:var(--weight-control);
+  background:var(--c-control);color:var(--c-on-surface)}
+[data-media-slot] .cs-media-strip .c-button:is(:focus-visible,.keys .kfocus){background:var(--c-control-focus);color:var(--c-on-control-focus)}
+[data-media-slot] .cs-media-credit{margin-left:auto;color:var(--c-on-surface-muted);font-size:var(--text-caption)}
+[data-media-slot] .cs-media:not(:has(.cs-media-stage)) .cs-media-strip{height:auto;max-height:none;padding:10px 0 0;background:none;
+  transform:none;opacity:1;visibility:visible;transition:none}
+[data-media-slot] .cs-media-note{margin:0}
+@media(prefers-reduced-motion:reduce){[data-media-slot] .cs-media-strip{transition:none}}
+/* Icon hints (render.mjs iconOf, 2026-11-18): a line icon before a row's words, a chevron after a row that opens a screen,
+   an icon beside a facts card. Sizes as Cinema's Controller panel always had them. */
+.cs-icon{display:inline-grid;place-items:center;width:28px;height:28px;flex:none}
+.cs-icon svg{width:100%;height:100%;display:block}
+.utility-row.cs-iconed{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:18px;text-align:start}
+.utility-row.cs-iconed:not(:has(.cs-chevron)){grid-template-columns:auto minmax(0,1fr)}
+.utility-row .cs-chevron{width:22px;height:22px;color:var(--c-on-surface-muted)}
+.utility-row:is(:focus-visible,.keys .kfocus) .cs-chevron{color:inherit}
+.cs-facts-card{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:18px;margin:6px 0 4px;padding:18px 20px;
+  background:var(--c-control);border:1px solid var(--c-line);border-radius:var(--radius-panel,20px)}
+.cs-facts-card>.cs-icon{width:36px;height:36px;color:var(--c-on-surface-muted)}
+.cs-facts-card .utility-facts{margin:0;grid-template-columns:1fr;gap:2px}
+.cs-facts-card .utility-facts dt{color:var(--c-on-surface);font-size:calc(20px*var(--text-scale,1));font-weight:var(--weight-control,600)}
+.cs-facts-card .utility-facts dd{color:var(--c-on-surface-muted)}
+/* An iconed row that opens a screen is an ENTRY (the Controller panel's approved proportions); one without is a compact
+   back link. */
+.utility-row.cs-iconed:has(.cs-chevron){min-height:88px;padding:16px 20px 16px 22px;border-radius:var(--radius-panel,20px)}
+.utility-row.cs-iconed:has(.cs-chevron) strong{font-size:calc(20px*var(--text-scale,1));line-height:1.25}
+.utility-row.cs-iconed:has(.cs-chevron) small{font-size:calc(15px*var(--text-scale,1));line-height:1.4;margin-top:4px}
+.utility-row.cs-iconed:not(:has(.cs-chevron)){justify-self:start;width:auto;min-height:40px;padding:8px 16px 8px 10px;column-gap:6px;background:transparent}
+.utility-row.cs-iconed:not(:has(.cs-chevron)) .cs-icon{width:20px;height:20px}
+/* Options (actions stating `selected`): rows in one column, the current one ringed with a check before its words; focus is
+   the page's fill, and a focused current option keeps its ring and check (the Controller panel's approved look). */
+.cs-options{display:flex;flex-direction:column;gap:8px}
+.cs-options .cs-option{min-height:52px;padding:12px 20px 12px 16px;grid-template-columns:1.1em minmax(0,1fr);column-gap:12px;border-radius:14px}
+.cs-options .cs-option::before{content:"";text-align:center;font-weight:var(--weight-control,600)}
+.cs-options .cs-option[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--c-accent,#fff)}
+.cs-options .cs-option[aria-pressed=true]::before{content:"\2713"}
+.cs-options .cs-option[aria-pressed=true] strong::after{content:none}
+.cs-options .cs-option[aria-pressed=true]:is(:focus-visible,.keys .kfocus){box-shadow:inset 0 0 0 2px var(--c-on-control-focus,#101318)}
+.cs-options .cs-option strong{font-weight:inherit}

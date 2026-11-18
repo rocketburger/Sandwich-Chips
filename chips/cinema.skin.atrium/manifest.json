@@ -1,0 +1,27 @@
+{
+  "id": "cinema.skin.atrium",
+  "type": "skin",
+  "api": 1,
+  "version": "1.0.0",
+  "name": "Atrium",
+  "description": "An alternate look for Sandwich, drawn through the same semantic surfaces.",
+  "skin": {
+    "name": "atrium",
+    "renderer": true
+  },
+  "chip": {
+    "format": 1,
+    "type": "skin",
+    "publisher": "rocketburger",
+    "category": "appearance",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "skin": [
+          1
+        ]
+      }
+    },
+    "summary": "An alternate look for Sandwich, drawn through the same semantic surfaces."
+  }
+}

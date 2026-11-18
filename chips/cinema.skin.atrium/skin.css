@@ -1,0 +1,79 @@
+/* Skin "atrium" (2026-11-17): a second, structurally different presentation, proving that the look of every semantic
+   surface belongs to the skin. Its tokens are a lighter, squarer palette; its renderer (render.mjs) lays surfaces out
+   as cards in a grid with toolbars, chips and tiles instead of Cinema's stacked rows. No feature module changes. */
+:root{
+  --font-family:"Segoe UI",system-ui,sans-serif;
+  --c-on-surface:#eef3f7;
+  --c-on-surface-muted:#9fb3c2;
+  --c-surface-overlay:#0e1a24f2;
+  --c-surface-raised:#142634;
+  --c-line:#7fb7d826;
+  --c-control:#7fb7d81f;
+  --c-control-focus:#ffd479;
+  --c-on-control-focus:#12202b;
+  --c-selected:#ffd479;
+  --c-on-selected:#12202b;
+  --c-accent:#ffd479;
+  --c-accent-soft:#ffd47940;
+  --c-shadow:#000a;
+  --shadow-overlay:0 12px 40px var(--c-shadow);
+  --radius-overlay:10px;
+  --radius-panel:8px;
+  --radius-control:6px;
+  --space-overlay:18px;
+  --text-control:14px;
+  --text-caption:12px;
+  --text-body:14px;
+  --weight-control:600;
+}
+/* The atrium renderer's own components (the skin owns drawing and style). */
+.atr-surface{display:grid;gap:14px}
+.atr-head h3{margin:0 0 4px;font-size:18px}
+.atr-head p{margin:0;color:var(--c-on-surface-muted)}
+.atr-status{padding:8px 12px;border-radius:var(--radius-panel);background:var(--c-control)}
+.atr-status[data-state=error]{border-left:4px solid #ff8f7a}
+.atr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.atr-card{display:grid;gap:10px;padding:14px;border-radius:var(--radius-panel);background:var(--c-surface-raised);border:1px solid var(--c-line)}
+.atr-card h4{margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--c-on-surface-muted)}
+.atr-toolbar{display:flex;flex-wrap:wrap;gap:8px}
+.atr-toolbar button,.atr-tile,.atr-line{border-radius:var(--radius-control);border:1px solid var(--c-line);background:var(--c-control);color:var(--c-on-surface);padding:8px 12px;font:inherit;text-align:left}
+.atr-toolbar button[data-tone=primary]{background:var(--c-accent);color:var(--c-on-selected)}
+.atr-toolbar button[data-tone=danger]{border-color:#ff8f7a}
+.atr-chips{display:flex;flex-wrap:wrap;gap:6px}
+.atr-chip{padding:4px 10px;border-radius:999px;background:var(--c-control);font-size:var(--text-caption)}
+.atr-chip b{font-weight:600;margin-right:4px;color:var(--c-on-surface-muted)}
+.atr-secret{display:flex;gap:8px;align-items:center}
+.atr-secret input{flex:1;padding:8px 10px;border-radius:var(--radius-control);border:1px solid var(--c-line);background:#0008;color:inherit}
+.atr-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.atr-tile{display:grid;gap:4px;align-content:start;min-height:72px}
+.atr-tile .c-artwork{aspect-ratio:2/3;border-radius:6px}
+.atr-lines{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.atr-line small,.atr-tile small{display:block;color:var(--c-on-surface-muted);font-size:var(--text-caption)}
+:is(.atr-toolbar button,.atr-tile,.atr-line):is(:focus-visible,.keys .kfocus){outline:3px solid var(--c-control-focus);outline-offset:2px}
+.atr-card-section{border:1px solid var(--c-line);border-radius:12px;padding:12px 14px;margin:14px 0;background:var(--c-surface-raised,transparent)}
+.atr-card-section h4{margin:0 0 10px;font-size:var(--text-caption);text-transform:uppercase;letter-spacing:.06em;color:var(--c-on-surface-muted)}
+.atr-card-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.atr-card-tile{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;text-align:left;border:1px solid var(--c-line);border-radius:10px;background:var(--c-control);color:var(--c-on-surface);padding:6px;font:inherit}
+.atr-card-tile[data-atr-shape=poster]{grid-template-columns:64px 1fr}
+.atr-card-art{aspect-ratio:16/9;border-radius:6px;background:var(--c-control);overflow:hidden;background-size:cover;background-position:center}
+.atr-card-tile[data-atr-shape=poster] .atr-card-art{aspect-ratio:2/3}
+.atr-card-words{display:grid;gap:2px}.atr-card-words small{color:var(--c-on-surface-muted);font-size:var(--text-caption)}
+.atr-card-tile[aria-current=true]{border-color:var(--c-accent)}
+.atr-card-tile[aria-disabled=true]{opacity:.55}
+.atr-card-tile:is(:focus-visible,.keys .kfocus){outline:3px solid var(--c-control-focus);outline-offset:2px}
+.atr-picture{width:160px;aspect-ratio:16/9;border-radius:8px;overflow:hidden}.atr-picture[data-shape=poster]{width:96px;aspect-ratio:2/3}
+.c-artwork img{width:100%;height:100%;object-fit:cover;display:block}
+[data-surface-placement^="player"].atr-surface{margin-top:10px;max-height:min(56vh,520px);overflow:auto}
+.atr-line[aria-current=true],.atr-tile[aria-current=true]{border-color:var(--c-accent);box-shadow:inset 3px 0 0 var(--c-accent)}
+/* The open card's media slot (2026-11-18): Atrium's OWN geometry, deliberately not Cinema's: a 3:2 stage and, under it, a
+   taller toolbar whose buttons wrap into two rows, opening and closing by the stage's aria-expanded. */
+[data-media-slot] .atr-media{display:block;position:relative}
+[data-media-slot] .atr-media-stage{display:block;width:100%;aspect-ratio:3/2;padding:0;border:0;border-radius:4px;background:transparent}
+[data-media-slot] .atr-media-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;box-sizing:border-box;max-height:0;padding:0 10px;overflow:hidden;
+  visibility:hidden;opacity:0;background:var(--c-surface-raised);border-top:1px solid var(--c-line);
+  transition:max-height .3s ease,padding .3s ease,opacity .2s ease,visibility 0s linear .3s}
+[data-media-slot] .atr-media-stage[aria-expanded=true]+.atr-media-bar{max-height:200px;padding:10px;visibility:visible;opacity:1;transition-delay:0s}
+[data-media-slot] .atr-media-bar>button{flex:1 1 60%;min-height:44px}   /* one control per row: a taller, wrapping toolbar */
+[data-media-slot] .atr-media-bar small{flex-basis:100%;color:var(--c-on-surface-muted)}
+[data-media-slot] .atr-media:has(> p) .atr-media-bar{max-height:none;padding:8px 0 0;visibility:visible;opacity:1;background:none;border:0;transition:none}
+@media(prefers-reduced-motion:reduce){[data-media-slot] .atr-media-bar{transition:none}}
