@@ -1,0 +1,11 @@
+{
+  "id": "sandwich.official",
+  "name": "Sandwich chips",
+  "publisher": "rocketburger",
+  "source": "https://github.com/rocketburger/Sandwich-Chips",
+  "channels": ["stable", "preview"],
+  "keys": [],
+  "redirect_hosts": [],
+  "entry_urls": {},
+  "status": "Not published. The signing keys, the public entry URLs (stable and preview), the release CDN redirect hosts and the licensing are owner decisions still open; until they are made, catalogues are built only locally with throwaway test keys."
+}

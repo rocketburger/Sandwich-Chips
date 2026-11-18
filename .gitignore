@@ -1,0 +1,10 @@
+# Never in this repository: keys, built catalogues, caches
+*.pem
+*.key
+*.sig
+dist/
+out/
+artifacts/
+index-*.json
+__pycache__/
+*.pyc

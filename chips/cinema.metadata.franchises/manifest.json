@@ -1,0 +1,46 @@
+{
+  "id": "cinema.metadata.franchises",
+  "type": "metadata",
+  "api": 1,
+  "version": "1.1.2",
+  "name": "Franchises (Wikidata)",
+  "description": "Cross-media franchises: films and series linked in Wikidata to a franchise's source works and film series, each opened as its own title. Data from Wikidata (CC0); requests paced and identified, facts kept on this computer.",
+  "module": "provider.py",
+  "data": {
+    "bytes": 8388608
+  },
+  "settings": [
+    {
+      "id": "pace",
+      "label": "Request pace",
+      "kind": "choice",
+      "choices": [
+        "standard",
+        "gentle"
+      ],
+      "labels": {
+        "standard": "Standard (at most 150 requests a minute)",
+        "gentle": "Gentle (at most 60 a minute)"
+      },
+      "default": "standard"
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "category": "media",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    },
+    "network": [
+      "www.wikidata.org"
+    ],
+    "summary": "Cross-media franchises in Search, from Wikidata relations (CC0)."
+  }
+}
