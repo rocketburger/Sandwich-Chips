@@ -53,8 +53,9 @@ def artifact(folder, root):
 
 
 def access(manifest):
-    contracts = lambda key: ['%s/%s' % (c.get('contract'), c.get('major')) for c in manifest.get(key) or [] if isinstance(c, dict)]
-    return dict(capabilities=list(manifest.get('capabilities') or []), provides=contracts('provides'), consumes=contracts('consumes'),
+    # The same access model core derives from the archive (cinema_chips.manifest_access): sorted, exact.
+    contracts = lambda key: sorted('%s/%s' % (c.get('contract'), c.get('major')) for c in manifest.get(key) or [] if isinstance(c, dict))
+    return dict(capabilities=sorted(str(c) for c in manifest.get('capabilities') or []), provides=contracts('provides'), consumes=contracts('consumes'),
                 data_bytes=(manifest.get('data') or {}).get('bytes', 0),
                 secrets=any(isinstance(s, dict) and s.get('secret') for s in manifest.get('settings') or []))
 
