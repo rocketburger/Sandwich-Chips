@@ -2,7 +2,7 @@
   "id": "cinema.skin.cinema",
   "type": "skin",
   "api": 1,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Cinema",
   "description": "Sandwich's Cinema look: the blue-grey canvas, raised panels and large artwork.",
   "skin": {

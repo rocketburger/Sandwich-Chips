@@ -4,8 +4,8 @@
   "name": "Sandwich starter (pilot)",
   "description": "An optional, separate set of chips for a new Sandwich: the metadata and provider adapters, the two skins, Advanced Playlist and Controller. Nothing in it is installed or turned on unless you trust its key, review its plan and choose.",
   "chips": [
-    {"id": "cinema.skin.cinema", "version": "1.0.0"},
-    {"id": "cinema.skin.atrium", "version": "1.0.0"},
+    {"id": "cinema.skin.cinema", "version": "1.0.1"},
+    {"id": "cinema.skin.atrium", "version": "1.0.1"},
     {"id": "cinema.metadata.tmdb", "version": "1.4.3"},
     {"id": "cinema.metadata.franchises", "version": "1.1.2"},
     {"id": "cinema.metadata.tenrai", "version": "0.1.2"},

@@ -3,6 +3,8 @@
 // fact lists, plain paragraphs), so the default look is unchanged. It holds no feature policy: every word and action
 // comes from the descriptor; actions go back through the runtime's kit (ids only).
 const make = (doc, tag, cls, text) => { const e = doc.createElement(tag);if (cls) e.className = cls;if (text != null) e.textContent = text;return e; };
+// A card through the kit's one card contract (2026-11-19, stage A); an older Cinema without kit.card gets a plain button.
+const cardOf = (kit, key, art) => { if (kit.card) return kit.card(key, art);const b = kit.button(key, '');if (art) b.append(art);return b; };
 
 // The skin's own small line icons for the descriptor's neutral icon hints (2026-11-18, review of bi: the Controller panel's
 // approved icons, now drawn by the skin). Unknown names draw nothing. Built as SVG elements, never parsed markup.
@@ -129,9 +131,9 @@ export function render(container, surface, kit) {
         if (item.kind !== 'list') continue;
         const row = make(doc, 'div', 'shelf-row');row.dataset.surfaceRow = '';
         const card = (key, badge, title, lines, tone, disabled) => {
-          const b = kit.button(key, '');b.className = 'card';b.dataset.kind = 'module-tile';b.dataset.tone = tone;
           const art = make(doc, 'div', 'art');art.setAttribute('aria-hidden', 'true');if (badge) art.append(make(doc, 'span', 'tile-badge', badge));
-          b.append(art, make(doc, 'strong', '', title));for (const l of lines.filter(Boolean)) b.append(make(doc, 'small', '', l));
+          const b = cardOf(kit, key, art);b.className = 'card';b.dataset.kind = 'module-tile';b.dataset.tone = tone;
+          b.append(make(doc, 'strong', '', title));for (const l of lines.filter(Boolean)) b.append(make(doc, 'small', '', l));
           b.setAttribute('aria-label', [title, badge, ...lines].filter(Boolean).join('. '));
           if (disabled) b.setAttribute('aria-disabled', 'true');
           return b;
@@ -213,11 +215,11 @@ export function render(container, surface, kit) {
         const grid = item.layout === 'tiles' ? make(doc, 'div', 'cs-tiles') : null;
         for (const entry of item.items) {
           if (grid) {
-            const b = kit.button(`${item.id}:${entry.id}`, '');b.className = 'cs-tile';b.disabled = entry.disabled;
             const art = make(doc, 'div', 'c-artwork');art.setAttribute('aria-hidden', 'true');kit.artwork(art, entry.art);
+            const b = cardOf(kit, `${item.id}:${entry.id}`, art);b.className = 'cs-tile';b.disabled = entry.disabled;
             const copy = make(doc, 'span');copy.append(make(doc, 'strong', '', entry.badge ? `${entry.badge} · ${entry.title}` : entry.title));
             const sub = [entry.subtitle, entry.meta].filter(Boolean).join(' · ');if (sub) copy.append(make(doc, 'small', '', sub));
-            b.append(art, copy);grid.append(b);continue;
+            b.append(copy);grid.append(b);continue;
           }
           container.append(row(doc, kit, `${item.id}:${entry.id}`, entry.badge ? `${entry.badge} · ${entry.title}` : entry.title,
             [entry.subtitle, entry.meta].filter(Boolean).join(' · '), {disabled: entry.disabled}));

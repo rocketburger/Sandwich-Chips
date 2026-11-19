@@ -4,6 +4,8 @@
 // two-column grid of lines, or poster tiles when the descriptor asks for tiles. No feature policy: every word and action
 // comes from the descriptor, and actions go back through the runtime's kit.
 const make = (doc, tag, cls, text) => { const e = doc.createElement(tag);if (cls) e.className = cls;if (text != null) e.textContent = text;return e; };
+// A card through the kit's one card contract (2026-11-19, stage A); an older Cinema without kit.card gets a plain button.
+const cardOf = (kit, key, art) => { if (kit.card) return kit.card(key, art);const b = kit.button(key, '');if (art) b.append(art);return b; };
 
 export function render(container, surface, kit) {
   const doc = container.ownerDocument;
@@ -65,8 +67,11 @@ export function render(container, surface, kit) {
         if (!item.items.length && item.empty) card.append(make(doc, 'p', '', item.empty));
         const box = make(doc, 'div', item.layout === 'tiles' ? 'atr-tiles' : 'atr-lines');
         for (const entry of item.items) {
-          const b = kit.button(`${item.id}:${entry.id}`, '');b.className = item.layout === 'tiles' ? 'atr-tile' : 'atr-line';b.disabled = entry.disabled;
-          if (item.layout !== 'rows' || entry.art) { const art = make(doc, 'div', 'c-artwork');art.setAttribute('aria-hidden', 'true');kit.artwork(art, entry.art);b.append(art); }
+          const tile = item.layout === 'tiles', art = item.layout !== 'rows' || entry.art ? make(doc, 'div', 'c-artwork') : null;
+          if (art) { art.setAttribute('aria-hidden', 'true');kit.artwork(art, entry.art); }
+          // Tiles are cards (the kit's one card contract); rows stay rows.
+          const b = tile ? cardOf(kit, `${item.id}:${entry.id}`, art) : kit.button(`${item.id}:${entry.id}`, '');
+          b.className = tile ? 'atr-tile' : 'atr-line';b.disabled = entry.disabled;if (art && !tile) b.append(art);
           if (entry.current) b.setAttribute('aria-current', 'true');
           b.append(make(doc, 'span', '', entry.badge ? `${entry.badge} ${entry.title}` : entry.title));
           const sub = [entry.subtitle, entry.meta].filter(Boolean).join(' · ');if (sub) b.append(make(doc, 'small', '', sub));

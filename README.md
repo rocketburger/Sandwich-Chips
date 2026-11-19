@@ -29,7 +29,7 @@ them from here, and the running app knows only installed packages.
 | `cinema.trailers.kinocheck` | trailers (KinoCheck) | 1.0.1 |
 | `cinema.advanced-playlist` | page extension: Next Up, continuation, playlists | 0.10.6 |
 | `cinema.controller` | page extension: controller layouts and pointer (core keeps the controller host) | 0.4.2 |
-| `cinema.skin.cinema`, `cinema.skin.atrium` | skins (pilot) | 1.0.0 |
+| `cinema.skin.cinema`, `cinema.skin.atrium` | skins (pilot) | 1.0.1 |
 
 - Core installs them from a **local** catalogue signed with a **throwaway test key**.
 - Nothing is published. No releases, keys or catalogues are in this repository.

@@ -2,7 +2,7 @@
   "id": "cinema.skin.atrium",
   "type": "skin",
   "api": 1,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Atrium",
   "description": "An alternate look for Sandwich, drawn through the same semantic surfaces.",
   "skin": {
