@@ -1,0 +1,144 @@
+{
+  "id": "cinema.controller",
+  "type": "extension",
+  "api": 2,
+  "version": "0.4.2",
+  "name": "Controller",
+  "description": "Controller settings for Cinema. In Settings › Extensions › Cinema extensions › Controller you can choose the button preset, the left and right trackpads, the gyro pointer (when it is active, its button and its sensitivity): the same settings as the Controller panel, kept in one place. The Controller panel (Settings › Extensions › Cinema extensions › Controller › Open Controller, while this module is on; 0.3.1: no longer an entry in Cinema's navigation) also has gyro calibration, the devices Cinema sees, and whether Steam Controllers are read directly by Cinema (without Steam) or left to Windows and Steam. Cinema reads controllers only while this module is on and its window has focus, and gives a Steam Controller back to its own mouse and keyboard mode when it loses focus, closes or this module is turned off (if Cinema is killed, reconnect the controller). When Steam is running, Cinema asks before reading a Steam Controller directly. It never moves the Windows pointer or sends keys to other programs. Not yet tested with real controllers: devices and connections are shown as unverified.",
+  "ui": "ui/main.mjs",
+  "styles": [],
+  "capabilities": [
+    "input.controller",
+    "storage",
+    "page.views",
+    "ui.surfaces"
+  ],
+  "preferences": [
+    {
+      "key": "buttons",
+      "label": "Buttons",
+      "kind": "choice",
+      "choices": [
+        "standard",
+        "swap",
+        "nintendo"
+      ],
+      "default": "standard",
+      "labels": {
+        "standard": "Standard",
+        "swap": "Swap Enter and Back",
+        "nintendo": "Nintendo layout"
+      },
+      "help": "Which face buttons are Enter and Back. Enter and Back always stay reachable. Takes effect at once while Controller is on; while it is off, it is kept and used when you turn Controller on."
+    },
+    {
+      "key": "left_pad",
+      "label": "Left trackpad",
+      "kind": "choice",
+      "choices": [
+        "off",
+        "click",
+        "touch"
+      ],
+      "default": "click",
+      "labels": {
+        "off": "Off",
+        "click": "Directions (press)",
+        "touch": "Directions (touch)"
+      },
+      "help": "The left trackpad as arrow directions, when pressed or when touched (controllers with trackpads). Takes effect at once while Controller is on; while it is off, it is kept and used when you turn Controller on."
+    },
+    {
+      "key": "right_pad",
+      "label": "Right trackpad",
+      "kind": "choice",
+      "choices": [
+        "off",
+        "scroll",
+        "pointer"
+      ],
+      "default": "scroll",
+      "labels": {
+        "off": "Off",
+        "scroll": "Scroll",
+        "pointer": "Pointer"
+      },
+      "help": "The right trackpad scrolls, or moves a pointer inside Cinema's page only (never the Windows pointer). Takes effect at once while Controller is on; while it is off, it is kept and used when you turn Controller on."
+    },
+    {
+      "key": "gyro",
+      "label": "Gyro pointer",
+      "kind": "choice",
+      "choices": [
+        "off",
+        "pad",
+        "button",
+        "always"
+      ],
+      "default": "off",
+      "labels": {
+        "off": "Off",
+        "pad": "While right pad touched",
+        "button": "While a button is held",
+        "always": "Always"
+      },
+      "help": "When the gyro moves Cinema's page pointer (controllers with a gyro). Calibrate it in the Controller panel. Takes effect at once while Controller is on; while it is off, it is kept and used when you turn Controller on."
+    },
+    {
+      "key": "gyro_button",
+      "label": "Gyro button",
+      "kind": "choice",
+      "choices": [
+        "r1",
+        "l1",
+        "r4",
+        "l4"
+      ],
+      "default": "r1",
+      "labels": {
+        "r1": "R1",
+        "l1": "L1",
+        "r4": "Right grip",
+        "l4": "Left grip"
+      },
+      "help": "The button to hold when the gyro pointer is \"While a button is held\". Takes effect at once while Controller is on; while it is off, it is kept and used when you turn Controller on."
+    },
+    {
+      "key": "gyro_sensitivity",
+      "label": "Gyro sensitivity",
+      "kind": "choice",
+      "choices": [
+        50,
+        100,
+        150,
+        200,
+        300
+      ],
+      "default": 100,
+      "labels": {
+        "50": "0.5×",
+        "100": "1×",
+        "150": "1.5×",
+        "200": "2×",
+        "300": "3×"
+      },
+      "help": "How far the pointer moves for a turn of the controller. Takes effect at once while Controller is on; while it is off, it is kept and used when you turn Controller on."
+    }
+  ],
+  "provides": [],
+  "consumes": [],
+  "chip": {
+    "format": 1,
+    "type": "feature",
+    "publisher": "rocketburger",
+    "category": "input",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "extension": [
+          2
+        ]
+      }
+    }
+  }
+}
