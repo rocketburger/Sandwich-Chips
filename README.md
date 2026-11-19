@@ -36,6 +36,16 @@ them from here, and the running app knows only installed packages.
 - `.gitattributes` keeps chip sources byte-exact (no line-ending conversion), so artifact and installed hashes do not
   depend on the checkout.
 
+## The starter (optional, separate; pilot)
+
+`starter/stable.json` lists exactly which chips, at which versions, make up the optional starter for a new Sandwich.
+In this pilot, that is the eight adapters above and the two skins. `tools/build_starter.py` builds it as a signed catalogue
+from ONE clean commit (read from Git objects, not the working tree), with a receipt (`STARTER.json`) and a README
+holding the key fingerprint.
+
+Sandwich imports it only through the ordinary decisions: add the folder, compare and trust the fingerprint, review
+each chip's access, confirm a plan (everything installs off), and turn chips on. Declining leaves Sandwich as it is.
+
 ## Conformance
 
 ```

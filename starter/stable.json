@@ -1,0 +1,18 @@
+{
+  "format": 1,
+  "id": "sandwich.starter",
+  "name": "Sandwich starter (pilot)",
+  "description": "An optional, separate set of chips for a new Sandwich: the metadata and provider adapters and the two skins. Nothing in it is installed or turned on unless you trust its key, review its plan and choose.",
+  "chips": [
+    {"id": "cinema.skin.cinema", "version": "1.0.0"},
+    {"id": "cinema.skin.atrium", "version": "1.0.0"},
+    {"id": "cinema.metadata.tmdb", "version": "1.4.3"},
+    {"id": "cinema.metadata.franchises", "version": "1.1.2"},
+    {"id": "cinema.metadata.tenrai", "version": "0.1.2"},
+    {"id": "cinema.identity.anibridge", "version": "0.1.1"},
+    {"id": "cinema.chapters.chaptersdb", "version": "0.1.1"},
+    {"id": "cinema.markers.theintrodb", "version": "0.1.1"},
+    {"id": "cinema.editions.cadrame", "version": "0.1.1"},
+    {"id": "cinema.trailers.kinocheck", "version": "1.0.1"}
+  ]
+}
