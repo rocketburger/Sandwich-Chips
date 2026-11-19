@@ -1,0 +1,2 @@
+# Chip sources are packaged byte for byte (artifact hashes, installed content hashes): never line-ending converted.
+chips/** -text

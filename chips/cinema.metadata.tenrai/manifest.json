@@ -1,0 +1,46 @@
+{
+  "id": "cinema.metadata.tenrai",
+  "type": "metadata",
+  "api": 1,
+  "version": "0.1.2",
+  "name": "Tenrai (MyAnimeList data)",
+  "description": "Anime facts, cover and trailers for titles that state a MyAnimeList id, from Tenrai's public API (beta; no account or key). Looked up by that exact id only: never by title. Data from MyAnimeList via Tenrai, with no uptime or freshness guarantee; artwork and text remain their owners'. Trailers play in YouTube's official embedded player.",
+  "module": "provider.py",
+  "ids": [
+    "mal"
+  ],
+  "settings": [
+    {
+      "id": "trailers",
+      "label": "Trailers",
+      "kind": "choice",
+      "choices": [
+        "on",
+        "off"
+      ],
+      "labels": {
+        "on": "On",
+        "off": "Off"
+      },
+      "default": "on"
+    },
+    {
+      "id": "region",
+      "label": "Trailer region (two-letter country code, optional)"
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "category": "media",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    }
+  }
+}

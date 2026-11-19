@@ -1,0 +1,40 @@
+{
+  "id": "cinema.metadata.tmdb",
+  "type": "metadata",
+  "api": 1,
+  "version": "1.4.3",
+  "name": "TMDB",
+  "description": "Cast, crew, release details and artwork from The Movie Database. Cinema uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.",
+  "notice": "This product uses the TMDB API but is not endorsed or certified by TMDB. Data and images: themoviedb.org.",
+  "module": "provider.py",
+  "settings": [
+    {
+      "id": "api_key",
+      "label": "API Read Access Token or API key",
+      "secret": true,
+      "required": true
+    },
+    {
+      "id": "language",
+      "label": "Language (e.g. en-US)"
+    },
+    {
+      "id": "region",
+      "label": "Rating country (e.g. US)"
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "category": "media",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    }
+  }
+}

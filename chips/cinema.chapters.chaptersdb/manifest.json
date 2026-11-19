@@ -1,0 +1,25 @@
+{
+  "id": "cinema.chapters.chaptersdb",
+  "type": "metadata",
+  "provides": "chapters",
+  "api": 1,
+  "version": "0.1.1",
+  "name": "ChaptersDB",
+  "description": "Conventional chapter lists for a title from ChaptersDB.com's public read API (v1), by exact IMDb id for movies. Candidate sets as contributors timed them for some release, not verified for the video you play. Off until you turn it on; no key is needed.",
+  "module": "provider.py",
+  "settings": [],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "category": "playback",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    }
+  }
+}

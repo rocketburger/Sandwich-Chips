@@ -1,0 +1,24 @@
+{
+  "id": "cinema.editions.cadrame",
+  "type": "metadata",
+  "provides": "editions",
+  "api": 1,
+  "version": "0.1.1",
+  "name": "Cadrame",
+  "description": "Edition candidates of a film and their timed annotations from Cadrame's public read API (CC0 data), by exact IMDb id. Candidates the database knows for the title, not verified as the video you play. Off until you turn it on; no key is needed.",
+  "module": "provider.py",
+  "settings": [],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    }
+  }
+}

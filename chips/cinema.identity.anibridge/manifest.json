@@ -1,0 +1,39 @@
+{
+  "id": "cinema.identity.anibridge",
+  "type": "metadata",
+  "api": 1,
+  "version": "0.1.1",
+  "name": "AniBridge mappings (anime cross-ids)",
+  "description": "Shows an anime once when another source lists it by TMDB/TVDB/IMDb id. AniBridge's open mappings (MIT), about 9 MB a day from GitHub; exact ids, never titles. Grouping only: episodes, progress and playback never use it. Community data: may be wrong or missing.",
+  "module": "provider.py",
+  "provides": "identity",
+  "ids": [
+    "anilist",
+    "mal"
+  ],
+  "dataset": {
+    "url": "https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.min.json",
+    "hosts": [
+      "github.com",
+      "release-assets.githubusercontent.com",
+      "objects.githubusercontent.com"
+    ],
+    "max_bytes": 12582912,
+    "max_age_hours": 24
+  },
+  "settings": [],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "category": "media",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    }
+  }
+}

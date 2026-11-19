@@ -1,7 +1,8 @@
 # Chip conformance
 
-Every chip in `chips/` must pass these checks before its version is listed in a catalogue. Core runs them today in its
-own test suite (`tests/test_chips.py` in the Sandwich repository). A runner here comes with the next milestone.
+Every chip in `chips/` must pass these checks before its version is listed in a catalogue.
+- **Static checks:** `tools/check_chips.py [--core <Sandwich core checkout>]` covers the manifest and artifact checks below, plus source-only content.
+- **Behaviour checks:** install, update, remove and lifetime run in core's test suite (`tests/test_chips.py`, `tests/test_chips_routes.py`) and its local-catalogue validation (`research/provider-extraction-2026-11-18/lifecycle.py` in the Sandwich repository).
 
 **Manifest and artifact**
 - The manifest validates for its kind (`metadata` api 1 or `extension` api 2).

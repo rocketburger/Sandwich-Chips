@@ -1,0 +1,35 @@
+{
+  "id": "cinema.markers.theintrodb",
+  "type": "metadata",
+  "provides": "markers",
+  "api": 1,
+  "version": "0.1.1",
+  "name": "TheIntroDB",
+  "description": "Intro, recap, credits and preview times for a title, from TheIntroDB's public API (v4). Title-level information about the release TheIntroDB measured, not verified for the video you play. Off until you turn it on; an API key is optional.",
+  "module": "provider.py",
+  "episode_numbering": [
+    "tvdb-default"
+  ],
+  "settings": [
+    {
+      "id": "api_key",
+      "label": "API key (optional)",
+      "secret": true,
+      "required": false
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "category": "playback",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    }
+  }
+}

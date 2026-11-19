@@ -1,0 +1,40 @@
+{
+  "id": "cinema.trailers.kinocheck",
+  "type": "metadata",
+  "provides": "trailers",
+  "api": 1,
+  "version": "1.0.1",
+  "name": "KinoCheck",
+  "description": "Movie and show trailers listed by KinoCheck (api.kinocheck.com), looked up by TMDB or IMDb id only. Trailers play in YouTube's official embedded player; Cinema never downloads or extracts them. No key needed (about 1000 lookups a day); a KinoCheck API key raises that.",
+  "module": "provider.py",
+  "settings": [
+    {
+      "id": "language",
+      "label": "Trailer language (en or de)"
+    },
+    {
+      "id": "api_key",
+      "label": "API key (optional)",
+      "secret": true,
+      "required": false
+    },
+    {
+      "id": "api_host",
+      "label": "API host (only with a key, if KinoCheck gave you one)"
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "provider",
+    "publisher": "rocketburger",
+    "category": "media",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "metadata": [
+          1
+        ]
+      }
+    }
+  }
+}
