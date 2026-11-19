@@ -6,7 +6,7 @@
   "chips": [
     {"id": "cinema.skin.cinema", "version": "1.0.1"},
     {"id": "cinema.skin.atrium", "version": "1.0.1"},
-    {"id": "cinema.metadata.tmdb", "version": "1.4.3"},
+    {"id": "cinema.metadata.tmdb", "version": "1.4.4"},
     {"id": "cinema.metadata.franchises", "version": "1.1.2"},
     {"id": "cinema.metadata.tenrai", "version": "0.1.2"},
     {"id": "cinema.identity.anibridge", "version": "0.1.1"},

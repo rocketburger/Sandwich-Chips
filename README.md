@@ -19,7 +19,7 @@ them from here, and the running app knows only installed packages.
 
 | Chip | Kind | Version |
 |---|---|---|
-| `cinema.metadata.tmdb` | metadata: details, groups, trailers (TMDB; its attribution `notice` is in its manifest) | 1.4.3 |
+| `cinema.metadata.tmdb` | metadata: details, groups, trailers (TMDB; its attribution `notice` is in its manifest) | 1.4.4 |
 | `cinema.metadata.franchises` | metadata: cross-media franchises (Wikidata, CC0) | 1.1.2 |
 | `cinema.metadata.tenrai` | metadata: anime information (Tenrai) | 0.1.2 |
 | `cinema.identity.anibridge` | identity: cross-ids (AniBridge, MIT; NOTICE.md) | 0.1.1 |

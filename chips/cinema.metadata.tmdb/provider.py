@@ -244,6 +244,11 @@ def _hub(data, kind, title_key, date_key):
                 related=_titles((data.get('recommendations') or {}).get('results'), kind, exclude=_int(data.get('id'))))
 
 
+def _imdb(value):
+    """The title's IMDb id as TMDB states it (tt + digits), or None: lets Cinema find it in add-ons that state only IMDb."""
+    return value if isinstance(value, str) and re.fullmatch(r'tt\d{5,10}', value) else None
+
+
 def _clean(record):
     return {k: v for k, v in record.items() if v not in (None, '', [], {})}
 
@@ -281,6 +286,7 @@ def movie(client, identity, ids, region):
         return None
     credits = data.get('credits') or {}
     out = dict(
+        imdb=_imdb(data.get('imdb_id')),
         overview=data.get('overview'), backdrop=_image(data.get('backdrop_path'), 'w1280'),
         cast=_cast(credits.get('cast')), director=_directors(credits.get('crew')), crew=_crew(credits.get('crew')),
         studio=_names(data.get('production_companies')), country=_names(data.get('production_countries'), 2),
@@ -335,11 +341,12 @@ def tvshow(client, identity, ids, region):
         (None if ids.get('tvdb') or ids.get('imdb') else _show_search(client, identity.get('title'), identity.get('year')))
     if not ident:
         return None
-    data = client.get('/tv/%d' % ident, append_to_response='credits,content_ratings,recommendations')
+    data = client.get('/tv/%d' % ident, append_to_response='credits,content_ratings,recommendations,external_ids')
     if not data:
         return None
     credits = data.get('credits') or {}
     return _clean(dict(
+        imdb=_imdb((data.get('external_ids') or {}).get('imdb_id')),
         overview=data.get('overview'), backdrop=_image(data.get('backdrop_path'), 'w1280'),
         cast=_cast(credits.get('cast')), crew=_crew(credits.get('crew'), data.get('created_by')),
         studio=_names(data.get('production_companies')),
