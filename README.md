@@ -27,6 +27,8 @@ them from here, and the running app knows only installed packages.
 | `cinema.markers.theintrodb` | markers (TheIntroDB) | 0.1.1 |
 | `cinema.editions.cadrame` | editions (Cadrame, CC0); no category, so Settings lists it under Other | 0.1.1 |
 | `cinema.trailers.kinocheck` | trailers (KinoCheck) | 1.0.1 |
+| `cinema.advanced-playlist` | page extension: Next Up, continuation, playlists | 0.10.6 |
+| `cinema.controller` | page extension: controller layouts and pointer (core keeps the controller host) | 0.4.2 |
 | `cinema.skin.cinema`, `cinema.skin.atrium` | skins (pilot) | 1.0.0 |
 
 - Core installs them from a **local** catalogue signed with a **throwaway test key**.
@@ -39,7 +41,7 @@ them from here, and the running app knows only installed packages.
 ## The starter (optional, separate; pilot)
 
 `starter/stable.json` lists exactly which chips, at which versions, make up the optional starter for a new Sandwich.
-In this pilot, that is the eight adapters above and the two skins. `tools/build_starter.py` builds it as a signed catalogue
+In this pilot, that is the eight adapters, the two skins, Advanced Playlist and Controller. `tools/build_starter.py` builds it as a signed catalogue
 from ONE clean commit (read from Git objects, not the working tree), with a receipt (`STARTER.json`) and a README
 holding the key fingerprint.
 
