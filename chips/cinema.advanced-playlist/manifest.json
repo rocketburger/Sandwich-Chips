@@ -1,0 +1,76 @@
+{
+  "id": "cinema.advanced-playlist",
+  "type": "extension",
+  "api": 2,
+  "version": "0.10.6",
+  "name": "Advanced Playlist",
+  "description": "Chapters for the video you are watching: a chapter list below the player and chapter marks on the timeline, from the chapters the video itself contains. Choose a chapter to go there. A video without chapters gets interval points instead, every 5 minutes by default (you can make them shorter or longer): generated positions, never chapters, paged a few at a time. On streams, and on local files Cinema reports it can read for previews (a plain local disk file), each point shows a thumbnail of the frame decoded at or after it (with that frame's own time), loaded for the points on the current page, after the timeline position you are hovering; on a local file Cinema hasn't verified (for example an MP4), choose a point to go there only while the player reports it as a plain local disk file it can seek, with a known length and its own uncorrected clock (otherwise the points are preview-only; the file's identity, chapters and editions stay unverified); choose a point to go there on verified local files, seekable progressive streams and direct plain MPEG-TS HLS VOD streams, where Cinema has checked that the player lands in the chosen segment. On every other HLS stream (masters, fMP4, byte ranges, encrypted, live) the points are preview-only. With Advanced Media, an Information panel shows what your library says about the title playing (matched only by its stated ids), including a link you confirmed there, shown as information only. With chapters you imported in Advanced Media for this exact file, a Supplied chapters list: choose one to move to its supplied time (never checked for accuracy). Chapters work without it. A queue of saved items: add from an item's details, play one, or choose Play queue to continue to the next item at a natural end (only for addons known to have no Up Next of their own). No skipping.",
+  "ui": "ui/main.mjs",
+  "styles": [],
+  "backend": "backend.py",
+  "capabilities": [
+    "player.ui",
+    "player.sequence",
+    "playback.events",
+    "playback.chapters",
+    "playback.seek",
+    "services",
+    "backend.reads",
+    "playback.source_identity",
+    "playback.references",
+    "playback.play",
+    "storage",
+    "items.actions",
+    "page.views",
+    "ui.surfaces"
+  ],
+  "preferences": [
+    {
+      "key": "interval_minutes",
+      "kind": "choice",
+      "label": "Interval points",
+      "unit": "minutes",
+      "help": "For a video without chapters: how far apart the generated points are. Also changeable in the Chapters panel while watching; a change here applies the next time Chapters opens.",
+      "choices": [
+        1,
+        2,
+        3,
+        5,
+        10,
+        15,
+        20,
+        30,
+        45,
+        60
+      ],
+      "default": 5
+    }
+  ],
+  "provides": [],
+  "consumes": [
+    {
+      "contract": "cinema.source-assets",
+      "major": 1,
+      "optional": true
+    },
+    {
+      "contract": "cinema.curated-manifest",
+      "major": 1,
+      "optional": true
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "feature",
+    "publisher": "rocketburger",
+    "category": "playback",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "extension": [
+          2
+        ]
+      }
+    }
+  }
+}
