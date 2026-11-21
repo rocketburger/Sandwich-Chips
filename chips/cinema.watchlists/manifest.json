@@ -1,0 +1,67 @@
+{
+  "id": "cinema.watchlists",
+  "type": "extension",
+  "api": 2,
+  "version": "0.7.2",
+  "name": "Watchlists",
+  "description": "Watchlists: browse your lists from services connected in Accounts & Services (AniList today, read-only) on Cinema's Lists page (Continue watching, Next up, Upcoming, Plan to watch, Completed, On hold, Dropped, Rewatching), open a title from a list in any video extension that can find it, follow a series, and see which list service suits what you are watching. It reads only: it never adds, removes or changes anything on a service, and it sends no watch progress anywhere. Connecting a service does not turn tracking on. You choose a destination per title (or None), or set a rule yourself; until then nothing is tracked. In this version a chosen destination is only shown: what would be sent is kept here, held, because writing is not enabled. For series you follow, it remembers on this device which episodes you finished in Cinema, to show what is next and what is upcoming; turn that off below. Trakt is listed so it can be refused clearly: Cinema has no Trakt connection. Off by default.",
+  "backend": "backend.py",
+  "capabilities": [
+    "ui.surfaces",
+    "titles.actions",
+    "lists.read",
+    "services",
+    "storage",
+    "playback.events"
+  ],
+  "preferences": [
+    {
+      "key": "local_progress",
+      "label": "Remember finished episodes of followed series",
+      "help": "On this device only, for series you follow, so Cinema can show the next episode and upcoming parts. Never sent to any service.",
+      "kind": "choice",
+      "choices": [
+        "followed",
+        "off"
+      ],
+      "default": "followed",
+      "labels": {
+        "followed": "On (followed series)",
+        "off": "Off"
+      }
+    }
+  ],
+  "ui": "ui/main.mjs",
+  "provides": [
+    {
+      "contract": "cinema.watchlists",
+      "major": 1
+    }
+  ],
+  "consumes": [
+    {
+      "contract": "cinema.accounts",
+      "major": 1,
+      "optional": true
+    },
+    {
+      "contract": "cinema.selected-media",
+      "major": 1,
+      "optional": true
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "feature",
+    "publisher": "rocketburger",
+    "category": "lists",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "extension": [
+          2
+        ]
+      }
+    }
+  }
+}
