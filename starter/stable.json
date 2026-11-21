@@ -2,7 +2,7 @@
   "format": 1,
   "id": "sandwich.starter",
   "name": "Sandwich starter (pilot)",
-  "description": "An optional, separate set of chips for a new Sandwich: the metadata and provider adapters, the two skins, Advanced Playlist and Controller. Nothing in it is installed or turned on unless you trust its key, review its plan and choose.",
+  "description": "An optional, separate set of chips for a new Sandwich: the metadata and provider adapters, the two skins, Advanced Playlist, Controller, Accounts & Services, Watchlists, Anime and Advanced Media. Nothing in it is installed or turned on unless you trust its key, review its plan and choose.",
   "chips": [
     {"id": "cinema.skin.cinema", "version": "1.0.1"},
     {"id": "cinema.skin.atrium", "version": "1.0.1"},
@@ -15,6 +15,10 @@
     {"id": "cinema.editions.cadrame", "version": "0.1.1"},
     {"id": "cinema.trailers.kinocheck", "version": "1.0.1"},
     {"id": "cinema.advanced-playlist", "version": "0.10.6"},
-    {"id": "cinema.controller", "version": "0.4.2"}
+    {"id": "cinema.controller", "version": "0.4.2"},
+    {"id": "cinema.accounts", "version": "0.12.1"},
+    {"id": "cinema.watchlists", "version": "0.7.2"},
+    {"id": "cinema.anime", "version": "0.6.0"},
+    {"id": "cinema.advanced-media", "version": "0.10.11"}
   ]
 }

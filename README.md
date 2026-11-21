@@ -12,7 +12,10 @@ catalogue lists them. The core application is in [rocketburger/Sandwich](https:/
 | `catalogue/repository.json` | The official catalogue's identity. Its keys and public URLs are not set yet. |
 | `conformance/` | What every chip must pass before it is listed. |
 
-## Status (2026-11-18): local only
+## Status (2026-11-21): every official chip's source is here
+
+Since 2026-11-21 Sandwich core has no `modules/` folder: Accounts, Watchlists, Anime and Advanced Media moved here
+too, byte for byte. A chip's changes and notes are committed in this repository; core commits only core.
 
 This repository is the **one canonical source** of these chips. Sandwich core keeps no copy: its build and tests read
 them from here, and the running app knows only installed packages.
@@ -29,6 +32,10 @@ them from here, and the running app knows only installed packages.
 | `cinema.trailers.kinocheck` | trailers (KinoCheck) | 1.0.1 |
 | `cinema.advanced-playlist` | page extension: Next Up, continuation, playlists | 0.10.6 |
 | `cinema.controller` | page extension: controller layouts and pointer (core keeps the controller host) | 0.4.2 |
+| `cinema.accounts` | extension: Accounts & Services (Real-Debrid, Premiumize, AniList); sealed secrets, read-only list reads | 0.12.1 |
+| `cinema.watchlists` | extension: lists, tracking policy (read-only), follows, Next up, the Lists page | 0.7.2 |
+| `cinema.anime` | video extension: Anime (AniList catalogue, ani.zip episode facts, public torrent indexes) | 0.6.0 |
+| `cinema.advanced-media` | extension: curated manifests, library information, trailers, chapter imports | 0.10.11 |
 | `cinema.skin.cinema`, `cinema.skin.atrium` | skins (pilot) | 1.0.1 |
 
 - Core installs them from a **local** catalogue signed with a **throwaway test key**.
