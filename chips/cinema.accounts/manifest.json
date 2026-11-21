@@ -1,0 +1,80 @@
+{
+  "id": "cinema.accounts",
+  "type": "extension",
+  "api": 2,
+  "version": "0.12.1",
+  "name": "Accounts & Services",
+  "description": "Accounts & Services: Cinema's place for shared accounts, for example a debrid service several add-ons can use through one connection. Premiumize: connect it here, in Settings, with your own Premiumize API key (from your Premiumize account page). Cinema checks the key with Premiumize, keeps it encrypted for your Windows account, and shows whether the account is connected and whether it is premium; Disconnect removes it from Cinema. Your add-ons do not use this connection by themselves. Two exceptions you can turn on, each Off by default and each only while Cinema itself runs that add-on, at the exact version checked: POV 6.10.23 and Otaku Testing 5.3.4 can then search, check Premiumize's cache and play through this connection without a key of their own (the add-on's own Premiumize switch must be on; it is on by default in POV and off by default in Otaku). Playing asks Premiumize for the download links of the one cached torrent you chose (its documented direct-download call, which does not add it to your cloud); the add-on then picks the file as it always does. During such a run nothing is added to your Premiumize cloud, nothing is deleted, the add-on's own cloud listing is left out, and the add-on's own key, if it has one, is not used for Premiumize. Other add-ons are not supported. Other Cinema modules can ask two things through it: whether Premiumize already has given torrent hashes cached (yes/no per hash), and, when you choose in Cinema to play one cached torrent (for example in the Anime extension), the download links of its files (the same direct-download call; nothing is added to your cloud). AniList (watchlist): connect it here with Sign in with AniList (AniList's own page opens in your browser for Cinema's registered app; you approve Cinema there and paste the token AniList shows, once), or paste an AniList access token you already have. Cinema checks with AniList who the token belongs to, keeps it encrypted for your Windows account, and can then READ one page at a time of your own list (titles, list status and progress), shown here under AniList › Your list; it never changes your list, progress or history. Your add-ons do not use this connection: Otaku keeps its own AniList login. Disconnect removes Cinema's copy only; the token stays valid at AniList until it expires or you revoke it there. Real-Debrid: it can only report Not connected; signing in is not available until Cinema's Real-Debrid app identity is decided. Answers given to other Cinema modules are only on/off facts, connection states and those file links, never passwords, keys or account details, and never your watch history. Turning it on changes nothing in your add-ons, accounts or settings.",
+  "backend": "backend.py",
+  "ui": "ui/main.mjs",
+  "capabilities": [
+    "ui.surfaces",
+    "services",
+    "backend.reads",
+    "secrets",
+    "storage"
+  ],
+  "settings_status": {
+    "read": "status",
+    "format": "cinema.accounts.status/1"
+  },
+  "settings_actions": {
+    "read": "connect",
+    "format": "cinema.accounts.connect/1"
+  },
+  "preferences": [
+    {
+      "key": "pov_cache_check",
+      "label": "POV: use this Premiumize connection",
+      "help": "When Cinema runs POV 6.10.23 with its Premiumize switch on, POV checks Premiumize’s cache and plays through this connection, without a key of its own. Nothing is added to your cloud or deleted.",
+      "kind": "choice",
+      "choices": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    },
+    {
+      "key": "otaku_premiumize",
+      "label": "Otaku: use this Premiumize connection",
+      "help": "When Cinema runs Otaku Testing 5.3.4 with its Premiumize switch on, Otaku checks Premiumize’s cache and plays through this connection, without a key of its own. Nothing is added to your cloud or deleted, and Otaku’s storage clean-up does not run.",
+      "kind": "choice",
+      "choices": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    }
+  ],
+  "provides": [
+    {
+      "contract": "cinema.accounts",
+      "major": 1
+    },
+    {
+      "contract": "cinema.accounts.provider",
+      "major": 1
+    }
+  ],
+  "consumes": [
+    {
+      "contract": "cinema.accounts.provider",
+      "major": 1,
+      "optional": true
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "feature",
+    "publisher": "rocketburger",
+    "category": "accounts",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "extension": [
+          2
+        ]
+      }
+    }
+  }
+}
