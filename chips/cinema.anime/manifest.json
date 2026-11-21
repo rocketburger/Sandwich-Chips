@@ -1,0 +1,292 @@
+{
+  "id": "cinema.anime",
+  "type": "extension",
+  "api": 2,
+  "version": "0.6.0",
+  "name": "Anime",
+  "description": "Anime: find a show, pick an episode, choose a source and play it in Cinema. Titles, seasons, specials and episode numbers, covers and banners, synopses, genres, studios, dates, scores and episode durations come from AniList's public catalogue (no account); each episode's own title, air date and still come from ani.zip's public mappings for that exact AniList entry, and Cinema's Browse page lists its public catalogue (trending, this season, next season, popular, top rated, by genre). A title opens as its whole franchise: every season, OVA and special, film, side story and other version AniList relates to it, each its own entry. Sources come from public torrent indexes: Nyaa (by name), nekoBT (by AniList id) and Torrentio (by Kitsu id); AnimeTosho is listed but off, since its operator shut its feed down. This extension reads their search answers only and never downloads or shares a torrent. When no source passes your filters, the sources found are shown with what each does not meet, for that search only. Playing a source needs a debrid service connected in Accounts & Services (Premiumize today): Cinema asks it, through that connection, which sources are cached and for the files of the one you choose; Cinema then plays the episode's own file from a pack, or asks you only when it cannot tell which file it is. Nothing is added to your cloud. Without that connection you can still search and see sources, marked as not playable. Your choices below are the defaults of every source search; you can change them for one search when choosing a source. This extension is Cinema's own: it does not run or need any Kodi add-on, and it signs in to nothing. Off by default.",
+  "backend": "backend.py",
+  "capabilities": [
+    "services",
+    "storage",
+    "cache"
+  ],
+  "preferences": [
+    {
+      "key": "source_nyaa",
+      "label": "Nyaa",
+      "kind": "choice",
+      "choices": [
+        "on",
+        "off"
+      ],
+      "default": "on",
+      "help": "Search Nyaa for torrents.",
+      "labels": {
+        "on": "On",
+        "off": "Off"
+      }
+    },
+    {
+      "key": "source_nekobt",
+      "label": "nekoBT",
+      "kind": "choice",
+      "choices": [
+        "on",
+        "off"
+      ],
+      "default": "on",
+      "help": "Search nekoBT for torrents (matched by AniList id).",
+      "labels": {
+        "on": "On",
+        "off": "Off"
+      }
+    },
+    {
+      "key": "source_torrentio",
+      "label": "Torrentio",
+      "kind": "choice",
+      "choices": [
+        "on",
+        "off"
+      ],
+      "default": "on",
+      "help": "Ask Torrentio for torrents (matched by Kitsu id, from Kitsu's own MyAnimeList mapping).",
+      "labels": {
+        "on": "On",
+        "off": "Off"
+      }
+    },
+    {
+      "key": "source_animetosho",
+      "label": "AnimeTosho",
+      "kind": "choice",
+      "choices": [
+        "on",
+        "off"
+      ],
+      "default": "off",
+      "help": "AnimeTosho's operator has shut down its feed and search API (site notice, 2026-09-16), so it answers nothing; Cinema tries it again every few hours while this is on.",
+      "labels": {
+        "on": "On",
+        "off": "Off"
+      }
+    },
+    {
+      "key": "quality_max",
+      "label": "Highest quality",
+      "kind": "choice",
+      "choices": [
+        "2160p",
+        "1080p",
+        "720p",
+        "480p"
+      ],
+      "default": "2160p",
+      "help": "Leave out sources above this resolution."
+    },
+    {
+      "key": "quality_min",
+      "label": "Lowest quality",
+      "kind": "choice",
+      "choices": [
+        "480p",
+        "720p",
+        "1080p",
+        "2160p"
+      ],
+      "default": "480p",
+      "help": "Leave out sources below this resolution (sources of unknown resolution are kept)."
+    },
+    {
+      "key": "size_max_gb",
+      "label": "Largest size per episode",
+      "kind": "choice",
+      "choices": [
+        0,
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "default": 0,
+      "help": "For a pack, its size is divided by the episodes it covers.",
+      "labels": {
+        "0": "No limit",
+        "1": "1 GB",
+        "2": "2 GB",
+        "4": "4 GB",
+        "8": "8 GB",
+        "16": "16 GB"
+      }
+    },
+    {
+      "key": "audio",
+      "label": "Audio",
+      "kind": "choice",
+      "choices": [
+        "any",
+        "dub",
+        "sub"
+      ],
+      "default": "any",
+      "help": "Which audio language a release title must name. \"Country-of-origin language\" infers the language from AniList's country of origin (Japan: Japanese); that is an inference, not a stated fact. Titles that name no audio language are kept only with Any.",
+      "labels": {
+        "any": "Any (stated or not)",
+        "dub": "English dub (stated)",
+        "sub": "Country-of-origin language (inferred)"
+      }
+    },
+    {
+      "key": "codec",
+      "label": "Video codec",
+      "kind": "choice",
+      "choices": [
+        "any",
+        "only_avc",
+        "only_hevc",
+        "only_av1",
+        "no_hevc",
+        "no_av1"
+      ],
+      "default": "any",
+      "help": "As the release title states it. \"Only\" keeps titles that name exactly that codec; \"Leave out\" drops titles that name it. Titles that name no codec are kept by Any and Leave out, never by Only.",
+      "labels": {
+        "any": "Any",
+        "only_avc": "Only H.264 (AVC)",
+        "only_hevc": "Only H.265 (HEVC)",
+        "only_av1": "Only AV1",
+        "no_hevc": "Leave out H.265 (HEVC)",
+        "no_av1": "Leave out AV1"
+      }
+    },
+    {
+      "key": "hdr",
+      "label": "HDR and Dolby Vision",
+      "kind": "choice",
+      "choices": [
+        "allow",
+        "no_dv",
+        "no_hdr"
+      ],
+      "default": "allow",
+      "labels": {
+        "allow": "Allow",
+        "no_dv": "No Dolby Vision",
+        "no_hdr": "No HDR or Dolby Vision"
+      }
+    },
+    {
+      "key": "packs",
+      "label": "Packs (several episodes)",
+      "kind": "choice",
+      "choices": [
+        "include",
+        "exclude"
+      ],
+      "default": "include",
+      "labels": {
+        "include": "Include",
+        "exclude": "Leave out"
+      }
+    },
+    {
+      "key": "cached",
+      "label": "Cached sources",
+      "kind": "choice",
+      "choices": [
+        "first",
+        "only",
+        "any"
+      ],
+      "default": "first",
+      "help": "Needs a debrid connection in Accounts & Services to know which are cached.",
+      "labels": {
+        "first": "Cached first",
+        "only": "Cached only",
+        "any": "No preference"
+      }
+    },
+    {
+      "key": "sort",
+      "label": "Sort by",
+      "kind": "choice",
+      "choices": [
+        "quality",
+        "seeders",
+        "size_small",
+        "size_large"
+      ],
+      "default": "quality",
+      "labels": {
+        "quality": "Quality, then seeders",
+        "seeders": "Seeders",
+        "size_small": "Smallest first",
+        "size_large": "Largest first"
+      }
+    },
+    {
+      "key": "timeout",
+      "label": "Search time limit",
+      "kind": "choice",
+      "choices": [
+        10,
+        20,
+        30,
+        60
+      ],
+      "default": 20,
+      "labels": {
+        "10": "10 seconds",
+        "20": "20 seconds",
+        "30": "30 seconds",
+        "60": "60 seconds"
+      }
+    },
+    {
+      "key": "episode_titles",
+      "label": "Episode titles",
+      "kind": "choice",
+      "choices": [
+        "english",
+        "romaji",
+        "japanese"
+      ],
+      "default": "english",
+      "help": "The language of episode titles, when the episode facts state one in it (else another stated language; \"Episode N\" only when none is stated).",
+      "labels": {
+        "english": "English",
+        "romaji": "Romaji (Japanese in Latin letters)",
+        "japanese": "Japanese"
+      }
+    }
+  ],
+  "provides": [
+    {
+      "contract": "cinema.media-provider",
+      "major": 1
+    }
+  ],
+  "consumes": [
+    {
+      "contract": "cinema.accounts",
+      "major": 1,
+      "optional": true
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "source",
+    "publisher": "rocketburger",
+    "category": "media",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "extension": [
+          2
+        ]
+      }
+    }
+  }
+}
