@@ -1,0 +1,87 @@
+{
+  "id": "cinema.advanced-media",
+  "type": "extension",
+  "api": 2,
+  "version": "0.10.11",
+  "name": "Advanced Media",
+  "description": "Curated media information: publishes partial manifests of your titles from the library records you give it, the titles you choose to keep while watching, and the items it has saved. Keeping a title is always your choice; nothing is recorded by itself. Its Library lists the titles you kept: rename how one is shown, remove it, or Find sources: ask an available search service for possible matches, shown with where they came from and never added by themselves; Link one you confirm, and other modules can show that link as information about the title (never to play it). Import chapters: bring a small chapter list you made for one exact file (matched by its SHA-256 and size); it is shown only when that file plays, never checked for accuracy. While a local video with chapters plays, it takes a thumbnail for each chapter from the video itself, for this playback only. Trailers: with a trailer provider on (for example KinoCheck), resting on a title's thumbnail loads its trailer at 2 seconds and plays it muted inside the thumbnail at 5; opening the title's card continues the same trailer from the same moment. It plays in YouTube's official embedded player with its control bar off; Cinema's own buttons pause it and turn sound on. KinoCheck (YouTube) is the trailer source. A route for direct trailer video files exists, but no direct-file provider is included. With Advanced Playlist on, its Information panel shows what this library says about the title playing. Optional throughout: each part works only when you use it. This module does not fetch metadata from online sources itself (title pages with cast and crew come from the TMDB plugin), and it has no editions or automatic matching.",
+  "ui": "ui/main.mjs",
+  "styles": [],
+  "backend": "backend.py",
+  "capabilities": [
+    "services",
+    "storage",
+    "playback.references",
+    "player.ui",
+    "playback.events",
+    "playback.chapters",
+    "playback.frames",
+    "backend.reads",
+    "page.views",
+    "page.media",
+    "page.cards",
+    "items.identity",
+    "media.sessions",
+    "ui.surfaces"
+  ],
+  "provides": [
+    {
+      "contract": "cinema.curated-manifest",
+      "major": 1
+    },
+    {
+      "contract": "cinema.source-assets",
+      "major": 1
+    },
+    {
+      "contract": "cinema.chapter-sets",
+      "major": 1
+    }
+  ],
+  "consumes": [
+    {
+      "contract": "cinema.media-provider",
+      "major": 1,
+      "optional": true
+    },
+    {
+      "contract": "cinema.metadata-enrichment",
+      "major": 1,
+      "optional": true
+    },
+    {
+      "contract": "cinema.media-markers",
+      "major": 1,
+      "optional": true
+    },
+    {
+      "contract": "cinema.chapter-candidates",
+      "major": 1,
+      "optional": true
+    },
+    {
+      "contract": "cinema.title-editions",
+      "major": 1,
+      "optional": true
+    },
+    {
+      "contract": "cinema.trailers",
+      "major": 1,
+      "optional": true
+    }
+  ],
+  "chip": {
+    "format": 1,
+    "type": "feature",
+    "publisher": "rocketburger",
+    "category": "media",
+    "requires": {
+      "host": ">=1.0 <2",
+      "apis": {
+        "extension": [
+          2
+        ]
+      }
+    }
+  }
+}
